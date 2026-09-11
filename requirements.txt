@@ -1,0 +1,17 @@
+# XiChen inference-only dependencies (loose lower bounds, mirrors pyproject.toml)
+torch>=2.0
+numpy>=1.24
+timm>=0.9.12
+einops>=0.6
+scipy>=1.10
+xarray>=2023.1
+netcdf4>=1.6
+pandas>=2.0
+matplotlib>=3.7
+click>=8.1
+python-dateutil>=2.8
+
+# Notebook demo extras (also available via `pip install -e .[notebooks]`)
+jupyter>=1.0
+cartopy>=0.22
+ipykernel>=6.25

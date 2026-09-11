@@ -216,3 +216,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- XiChen open-source additions ---
+data/
+ckpts/
+outputs/
+figures/
+logs/
+*.ckpt
+.ipynb_checkpoints/
+
+# Claude Code / OMC agent state (never ship internal session state)
+.omc/

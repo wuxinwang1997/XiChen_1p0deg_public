@@ -1,0 +1,31 @@
+{
+  "_comment": "obs_dict schema (纯 JSON, no OmegaConf)。运行时只读此 JSON 字段；每个 sat 的 tmbrs_vars 等价于对应 *_obsop.json 的 out_sat_vars；auxiliary 取自 all_sat_vars 中非 tmbrs 部分。",
+  "obs_dict": {
+    "microwave": {
+      "atms": {
+        "tmbrs_vars": ["tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10", "tmbrs_11", "tmbrs_18", "tmbrs_19", "tmbrs_20", "tmbrs_21", "tmbrs_22"],
+        "all_sat_vars": ["obs_time", "obs_latitude", "obs_longitude", "sat_id", "scanline", "fov", "orbit_number", "satellite_zenith_angle", "satellite_azimuth_angle", "solar_zenith_angle", "solar_azimuth_angle", "satellite_height", "geolocation_quality_flags", "scan_quality_flags", "granule_quality_flags", "tmbrs_1", "tmbrs_2", "tmbrs_3", "tmbrs_4", "tmbrs_5", "tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10", "tmbrs_11", "tmbrs_12", "tmbrs_13", "tmbrs_14", "tmbrs_15", "tmbrs_16", "tmbrs_17", "tmbrs_18", "tmbrs_19", "tmbrs_20", "tmbrs_21", "tmbrs_22"]
+      },
+      "amsua": {
+        "tmbrs_vars": ["tmbrs_5", "tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10"],
+        "all_sat_vars": ["said", "siid", "fovn", "lsql", "saza", "soza", "hols", "hmsl", "solazi", "bearaz", "tmbrs_1", "tmbrs_2", "tmbrs_3", "tmbrs_4", "tmbrs_5", "tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10", "tmbrs_11", "tmbrs_12", "tmbrs_13", "tmbrs_14", "tmbrs_15"]
+      },
+      "mhs": {
+        "tmbrs_vars": ["tmbrs_3", "tmbrs_4", "tmbrs_5"],
+        "all_sat_vars": ["said", "siid", "fovn", "lsql", "saza", "soza", "hols", "hmsl", "solazi", "bearaz", "tmbrs_1", "tmbrs_2", "tmbrs_3", "tmbrs_4", "tmbrs_5"]
+      },
+      "hrs4": {
+        "tmbrs_vars": ["tmbrs_4", "tmbrs_5", "tmbrs_6", "tmbrs_7", "tmbrs_11", "tmbrs_12", "tmbrs_14", "tmbrs_15"],
+        "all_sat_vars": ["said", "siid", "fovn", "lsql", "saza", "soza", "hols", "hmsl", "solazi", "bearaz", "tmbrs_1", "tmbrs_2", "tmbrs_3", "tmbrs_4", "tmbrs_5", "tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10", "tmbrs_11", "tmbrs_12", "tmbrs_13", "tmbrs_14", "tmbrs_15", "tmbrs_16", "tmbrs_17", "tmbrs_18", "tmbrs_19"]
+      }
+    },
+    "conventional": {
+      "prepbufr": {
+        "vars": ["t2m", "u10", "v10", "msl", "z-50", "z-100", "z-150", "z-200", "z-250", "z-300", "z-400", "z-500", "z-600", "z-700", "z-850", "z-925", "z-1000", "u-50", "u-100", "u-150", "u-200", "u-250", "u-300", "u-400", "u-500", "u-600", "u-700", "u-850", "u-925", "u-1000", "v-50", "v-100", "v-150", "v-200", "v-250", "v-300", "v-400", "v-500", "v-600", "v-700", "v-850", "v-925", "v-1000", "t-50", "t-100", "t-150", "t-200", "t-250", "t-300", "t-400", "t-500", "t-600", "t-700", "t-850", "t-925", "t-1000", "q-50", "q-100", "q-150", "q-200", "q-250", "q-300", "q-400", "q-500", "q-600", "q-700", "q-850", "q-925", "q-1000"]
+      },
+      "satwnd": {
+        "vars": ["u-50", "u-100", "u-150", "u-200", "u-250", "u-300", "u-400", "u-500", "u-600", "u-700", "u-850", "u-925", "u-1000", "v-50", "v-100", "v-150", "v-200", "v-250", "v-300", "v-400", "v-500", "v-600", "v-700", "v-850", "v-925", "v-1000"]
+      }
+    }
+  }
+}

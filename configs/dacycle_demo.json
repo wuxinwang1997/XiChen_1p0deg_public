@@ -1,0 +1,40 @@
+{
+  "_comment": "XiChen cascade DA demo 配置：2023-01-05T00 起 3 个 12h cycle（气候态冷启动）。所有路径相对仓库根目录；数据与 ckpt 由 Zenodo 下载后解压到 ./data 与 ./ckpts。从仓库根运行：xichen-dacycle --config configs/dacycle_demo.json",
+  "task_name": "demo_dacycle",
+  "cycle_start": "2023-01-05T00:00:00",
+  "cycle_end": "2023-01-06T00:00:00",
+  "cycle_interval_hours": 12,
+  "trigger_6h_hours": [
+    0,
+    12
+  ],
+  "obs_order": [
+    "atms",
+    "amsua",
+    "mhs",
+    "hrs4",
+    "prepbufr",
+    "satwnd"
+  ],
+  "era5_lr_dir": "./data/era5",
+  "obs_dir": "./data/observation",
+  "scale_dir": "./data/era5/normalized_mean_std",
+  "forecast_config": "configs/xichen_forecast.json",
+  "obsop_configs": {
+    "atms": "configs/atms_obsop.json",
+    "amsua": "configs/amsua_obsop.json",
+    "mhs": "configs/mhs_obsop.json",
+    "hrs4": "configs/hrs4_obsop.json"
+  },
+  "obs_dict_config": "configs/obs_dict_6obs.json",
+  "ckpt_forecast": "./ckpts/xichen_state_forecast_ar15.ckpt",
+  "ckpt_obsop": {
+    "atms": "./ckpts/xichen_obsop_atms.ckpt",
+    "amsua": "./ckpts/xichen_obsop_amsua.ckpt",
+    "mhs": "./ckpts/xichen_obsop_mhs.ckpt",
+    "hrs4": "./ckpts/xichen_obsop_hrs4.ckpt"
+  },
+  "ckpt_cascade_da": "./ckpts/xichen_cascade_da_randombg_atms_amsua_mhs_hrs4_prepbufr_satwnd.ckpt",
+  "output_dir": "./outputs/demo_dacycle",
+  "device": "cuda"
+}

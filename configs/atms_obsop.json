@@ -1,0 +1,44 @@
+{   
+    "default_vars": [
+        "t2m", "u10", "v10", "msl",
+        "z-50", "z-100", "z-150", "z-200", "z-250", "z-300", "z-400", "z-500", "z-600", "z-700", "z-850", "z-925", "z-1000",
+        "u-50", "u-100", "u-150", "u-200", "u-250", "u-300", "u-400", "u-500", "u-600", "u-700", "u-850", "u-925", "u-1000",
+        "v-50", "v-100", "v-150", "v-200", "v-250", "v-300", "v-400", "v-500", "v-600", "v-700", "v-850", "v-925", "v-1000",
+        "t-50", "t-100", "t-150", "t-200", "t-250", "t-300", "t-400", "t-500", "t-600", "t-700", "t-850", "t-925", "t-1000",
+        "q-50", "q-100", "q-150", "q-200", "q-250", "q-300", "q-400", "q-500", "q-600", "q-700", "q-850", "q-925", "q-1000"
+    ],
+    "all_sat_vars": [
+        "obs_time", "obs_latitude", "obs_longitude", "sat_id", 
+        "scanline", "fov", "orbit_number", "satellite_zenith_angle", 
+        "satellite_azimuth_angle", "solar_zenith_angle", "solar_azimuth_angle", 
+        "satellite_height", "geolocation_quality_flags", "scan_quality_flags", "granule_quality_flags",
+        "tmbrs_1", "tmbrs_2", "tmbrs_3", "tmbrs_4", "tmbrs_5", 
+        "tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10", 
+        "tmbrs_11", "tmbrs_12", "tmbrs_13", "tmbrs_14", "tmbrs_15", 
+        "tmbrs_16", "tmbrs_17", "tmbrs_18", "tmbrs_19", "tmbrs_20",
+        "tmbrs_21", "tmbrs_22" 
+    ],
+    "in_sat_vars": [
+        "fov", "satellite_zenith_angle", "satellite_azimuth_angle", "solar_zenith_angle", 
+        "solar_azimuth_angle", "satellite_height", "geolocation_quality_flags", "scan_quality_flags", "granule_quality_flags",
+        "tmbrs_1", "tmbrs_2", "tmbrs_3", "tmbrs_4", "tmbrs_5", "tmbrs_12", 
+        "tmbrs_13", "tmbrs_14", "tmbrs_15", "tmbrs_16", "tmbrs_17"
+    ],
+    "out_sat_vars": [
+        "tmbrs_6", "tmbrs_7", "tmbrs_8", "tmbrs_9", "tmbrs_10", "tmbrs_11",
+        "tmbrs_18", "tmbrs_19", "tmbrs_20", "tmbrs_21", "tmbrs_22"
+    ],
+    "img_size": [181, 360],
+    "window_size": [6, 12],
+    "patch_size": [6, 5],
+    "patch_stride": [5, 5],
+    "embed_dim": 768,
+    "num_heads": 12,
+    "encoder_depths": [2, 2, 2],
+    "latent_depths": [4, 4, 4],
+    "decoder_depths": [2, 2, 2],
+    "mlp_ratio": 4,
+    "drop_path": 0.2,
+    "drop_rate": 0.2,
+    "attn_drop": 0
+}

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xichen"
+version = "1.0.0"
+description = "XiChen: end-to-end AI weather forecasting, radiance observation operators and cascade data assimilation (1.0 deg)"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.24",
+    "timm>=0.9.12",
+    "einops>=0.6",
+    "scipy>=1.10",
+    "xarray>=2023.1",
+    "netcdf4>=1.6",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "click>=8.1",
+    "python-dateutil>=2.8",
+]
+
+[project.optional-dependencies]
+notebooks = [
+    "jupyter>=1.0",
+    "cartopy>=0.22",
+    "ipykernel>=6.25",
+]
+
+[project.scripts]
+xichen-forecast = "xichen.cli.forecast:main"
+xichen-dacycle = "xichen.cli.dacycle:main"
+xichen-da-forecast = "xichen.cli.da_forecast:main"
+xichen-obsop = "xichen.cli.obsop:main"
+
+[tool.setuptools.packages.find]
+include = ["xichen*"]

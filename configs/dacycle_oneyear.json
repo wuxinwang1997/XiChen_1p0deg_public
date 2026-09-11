@@ -1,0 +1,40 @@
+{
+  "_comment": "XiChen cascade DA 一年同化循环配置（基线：6 obs 全开）。路径用 ${XICHEN_DATA_DIR} / ${XICHEN_CKPT_DIR} 环境变量占位（运行前 export，或在 shell 中 envsubst 风格由加载器自动 expandvars）。示例：export XICHEN_DATA_DIR=/path/to/data XICHEN_CKPT_DIR=/path/to/ckpts && xichen-dacycle --config configs/dacycle_oneyear.json",
+  "task_name": "cycle_da_2023",
+  "cycle_start": "2022-12-05T00:00:00",
+  "cycle_end": "2023-12-31T12:00:00",
+  "cycle_interval_hours": 12,
+  "trigger_6h_hours": [
+    0,
+    12
+  ],
+  "obs_order": [
+    "atms",
+    "amsua",
+    "mhs",
+    "hrs4",
+    "prepbufr",
+    "satwnd"
+  ],
+  "era5_lr_dir": "${XICHEN_DATA_DIR}/era5",
+  "obs_dir": "${XICHEN_DATA_DIR}/observation",
+  "scale_dir": "${XICHEN_DATA_DIR}/era5/normalized_mean_std",
+  "forecast_config": "configs/xichen_forecast.json",
+  "obsop_configs": {
+    "atms": "configs/atms_obsop.json",
+    "amsua": "configs/amsua_obsop.json",
+    "mhs": "configs/mhs_obsop.json",
+    "hrs4": "configs/hrs4_obsop.json"
+  },
+  "obs_dict_config": "configs/obs_dict_6obs.json",
+  "ckpt_forecast": "${XICHEN_CKPT_DIR}/xichen_state_forecast_ar15.ckpt",
+  "ckpt_obsop": {
+    "atms": "${XICHEN_CKPT_DIR}/xichen_obsop_atms.ckpt",
+    "amsua": "${XICHEN_CKPT_DIR}/xichen_obsop_amsua.ckpt",
+    "mhs": "${XICHEN_CKPT_DIR}/xichen_obsop_mhs.ckpt",
+    "hrs4": "${XICHEN_CKPT_DIR}/xichen_obsop_hrs4.ckpt"
+  },
+  "ckpt_cascade_da": "${XICHEN_CKPT_DIR}/xichen_cascade_da_randombg_atms_amsua_mhs_hrs4_prepbufr_satwnd.ckpt",
+  "output_dir": "./outputs/cycle_da_2023",
+  "device": "cuda"
+}
