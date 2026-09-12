@@ -85,7 +85,22 @@ xichen-forecast \
   --output_dir outputs/era5_init_forecast
 
 # 2) cascade DA demo: 3 cycles from a climatology cold start
-xichen-dacycle --config configs/dacycle_demo.json
+#    Data/weights default to ./data and ./ckpts. If they live elsewhere, each
+#    config path can be overridden on the command line (omit to keep the config value):
+#      --era5_lr_dir  --obs_dir  --scale_dir
+#      --ckpt_forecast  --ckpt_cascade_da  --ckpt_obsop SAT=PATH (repeatable)
+#    (output dir overridden via --output_root/--task_name_out; see `xichen-dacycle --help`)
+xichen-dacycle --config configs/dacycle_demo.json \
+  --era5_lr_dir /path/to/era5 \
+  --obs_dir /path/to/observation \
+  --scale_dir /path/to/era5/normalized_mean_std \
+  --ckpt_forecast /path/to/xichen_state_forecast_ar15.ckpt \
+  --ckpt_obsop atms=/path/to/xichen_obsop_atms.ckpt \
+  --ckpt_obsop amsua=/path/to/xichen_obsop_amsua.ckpt \
+  --ckpt_obsop mhs=/path/to/xichen_obsop_mhs.ckpt \
+  --ckpt_obsop hrs4=/path/to/xichen_obsop_hrs4.ckpt \
+  --ckpt_cascade_da /path/to/xichen_cascade_da_randombg_atms_amsua_mhs_hrs4_prepbufr_satwnd.ckpt \
+  --output_root /path/to/results --task_name_out demo_cycle_da
 
 # 3) 10-day forecast from the DA analysis produced in step 2
 xichen-da-forecast \
