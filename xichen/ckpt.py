@@ -2,6 +2,12 @@ import torch
 import os
 
 
+# 交付的 *.ckpt 内嵌训练期的 OmegaConf(Hydra) 配置对象；torch>=2.6 起默认 weights_only=True
+# 会拒绝反序列化这些非张量对象,导致 `Weights only load failed`。这里统一全量反序列化
+# (weights_only=False)——仅用于加载官方/自训练的受信 checkpoint。
+_LOAD_KWARGS = {"map_location": "cpu", "weights_only": False}
+
+
 def _resolve_ckpt_path(ckpt_dir, model_name):
     """把「目录」或「扁平 .ckpt 文件」解析为实际 checkpoint 路径。
 
@@ -120,7 +126,7 @@ def _extract_state_dict(checkpoint, model):
 def load_forecast_ckpt(ckpt_dir, model_name, forecast_model):
     checkpoint = torch.load(
         _resolve_ckpt_path(ckpt_dir, model_name),
-        map_location="cpu",
+        **_LOAD_KWARGS,
     )
     return _extract_state_dict(checkpoint, forecast_model)
 
@@ -128,6 +134,6 @@ def load_forecast_ckpt(ckpt_dir, model_name, forecast_model):
 def load_obsop_ckpt(ckpt_dir, model_name, obsop_model):
     checkpoint = torch.load(
         _resolve_ckpt_path(ckpt_dir, model_name),
-        map_location="cpu",
+        **_LOAD_KWARGS,
     )
     return _extract_state_dict(checkpoint, obsop_model)

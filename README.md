@@ -24,7 +24,7 @@ pip install -e .            # core library + CLI
 pip install -e .[notebooks] # + jupyter / cartopy for the demo notebooks
 ```
 
-Requirements: Python ≥ 3.10, PyTorch ≥ 2.0 (a CUDA GPU is strongly recommended; CPU works but is very slow). Checkpoints are plain tensor state-dicts and load fine with `torch.load` default `weights_only=True` (PyTorch ≥ 2.6).
+Requirements: Python ≥ 3.10, PyTorch ≥ 2.0, and the runtime dependency `omegaconf` (a CUDA GPU is strongly recommended; CPU works but is very slow). The released checkpoints embed the training-time OmegaConf (Hydra) config, so they load via full deserialization (`weights_only=False`) — only load checkpoints whose source you trust.
 
 ## Download weights and demo data
 
@@ -135,8 +135,7 @@ metrics saved by notebook 01, so run 01 → 02 → 03.
 │   ├── obsop_eval.py        # observation-operator OMB evaluation
 │   ├── dacycle/             # common.py (loop, models, obs window) + det.py (one cycle)
 │   └── cli/                 # xichen-{forecast,dacycle,da-forecast,obsop} entry points
-├── configs/                 # model hyper-parameters (REQUIRED: ckpts are pure
-│                            #   state-dicts) + demo / one-year DA cycle configs
+├── configs/                 # model hyper-parameters + demo / one-year DA cycle configs
 ├── notebooks/               # the three demos above
 ├── scripts/download.py      # Zenodo downloader (stdlib only)
 └── scripts/check_imports.py # import hygiene check

@@ -123,7 +123,8 @@ def load_models(cfg, cascade_cfg, obs_dict, device):
         cascade_ckpt_path = os.path.join(
             cfg["ckpt_cascade_da"], "runs", "checkpoints", "best.ckpt"
         )
-    cascade_ckpt = torch.load(cascade_ckpt_path, map_location="cpu")
+    # 交付的 cascade *.ckpt 同样内嵌 OmegaConf 配置对象,需全量反序列化(见 ckpt.py _LOAD_KWARGS)。
+    cascade_ckpt = torch.load(cascade_ckpt_path, map_location="cpu", weights_only=False)
     da_state = cascade_ckpt["da_model_state_dict"]
     da_models = torch.nn.ModuleDict()
     for obs in OBS_LIST:
@@ -761,6 +762,21 @@ def build_common_parser():
                              "不指定时使用 cfg['output_dir']。")
     parser.add_argument("--task_name_out", type=str, default=None,
                         help="输出子目录名；默认用 cfg['task_name']，没有则用 'default'。")
+
+    # === 数据/权重路径的 CLI 覆盖（默认 None；提供则覆盖 config 对应字段）===
+    parser.add_argument("--era5_lr_dir", type=str, default=None,
+                        help="覆盖 cfg['era5_lr_dir']（ERA5 状态 npy 归档根）")
+    parser.add_argument("--obs_dir", type=str, default=None,
+                        help="覆盖 cfg['obs_dir']（观测根）")
+    parser.add_argument("--scale_dir", type=str, default=None,
+                        help="覆盖 cfg['scale_dir']（normalized_mean_std）")
+    parser.add_argument("--ckpt_forecast", type=str, default=None,
+                        help="覆盖 cfg['ckpt_forecast']")
+    parser.add_argument("--ckpt_cascade_da", type=str, default=None,
+                        help="覆盖 cfg['ckpt_cascade_da']")
+    parser.add_argument("--ckpt_obsop", action="append", default=None,
+                        metavar="SAT=PATH",
+                        help="覆盖 cfg['ckpt_obsop'][SAT]；可重复，如 --ckpt_obsop atms=/path")
     return parser
 
 
@@ -804,6 +820,26 @@ def load_config_and_env(args):
             cfg["output_dir"] = os.path.join(cfg["output_dir"], suffix)
     # 确保输出目录存在（save_nc/save_metrics 内部也建子目录，但根目录要预建）
     os.makedirs(cfg["output_dir"], exist_ok=True)
+
+    # 数据/权重路径的 CLI 覆盖（提供则覆盖 config，覆盖后才能让下方 fail-fast 校验实际路径）
+    if args.era5_lr_dir is not None:
+        cfg["era5_lr_dir"] = args.era5_lr_dir
+    if args.obs_dir is not None:
+        cfg["obs_dir"] = args.obs_dir
+    if args.scale_dir is not None:
+        cfg["scale_dir"] = args.scale_dir
+    if args.ckpt_forecast is not None:
+        cfg["ckpt_forecast"] = args.ckpt_forecast
+    if args.ckpt_cascade_da is not None:
+        cfg["ckpt_cascade_da"] = args.ckpt_cascade_da
+    if args.ckpt_obsop:
+        for kv in args.ckpt_obsop:
+            sat, sep, path = kv.partition("=")
+            if sat not in SAT_LIST:
+                raise ValueError(
+                    f"--ckpt_obsop 未知卫星 '{sat}'，期望 {SAT_LIST}，格式 SAT=PATH"
+                )
+            cfg["ckpt_obsop"][sat] = path
 
     # 启动期 path 检查（fail fast）
     must_exist = [

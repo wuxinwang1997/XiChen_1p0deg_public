@@ -1,5 +1,7 @@
 # XiChen inference-only dependencies (loose lower bounds, mirrors pyproject.toml)
 torch>=2.0
+# 非推理直接 import：交付的 *.ckpt 内嵌 OmegaConf(Hydra) 配置对象,反序列化需要 omegaconf。
+omegaconf>=2.6
 numpy>=1.24
 timm>=0.9.12
 einops>=0.6
