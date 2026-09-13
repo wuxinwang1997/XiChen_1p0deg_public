@@ -21,7 +21,7 @@ eval_forecast(loader, ckpt_path, config, output_dir) -> dict
 * ckpt_path : str
     Directory passed to `load_forecast_ckpt`.
 * config : dict
-    Required keys: era5_lr_dir, era5_hr_dir, forecast_hours,
+    Required keys: era5_lr_dir, forecast_hours,
     start_year, end_year, decorrelation_hours, dt, forecast_name,
     device.
 * output_dir : str
@@ -73,7 +73,6 @@ log = logging.getLogger("inference.era5_forecast_core")
 
 _CONFIG_KEYS = (
     "era5_lr_dir",
-    "era5_hr_dir",
     "forecast_hours",
     "dt",
     "forecast_name",
@@ -411,7 +410,7 @@ def eval_forecast(
         Directory containing the forecast checkpoint passed to
         `load_forecast_ckpt`.
     config : dict
-        Must contain: era5_lr_dir, era5_hr_dir, forecast_hours, dt,
+        Must contain: era5_lr_dir, forecast_hours, dt,
         forecast_name, device. Additionally start_year, end_year and
         decorrelation_hours unless `init_times` is given. Optional:
         `init_times` (explicit list of init datetimes; defaults to the

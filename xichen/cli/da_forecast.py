@@ -53,7 +53,6 @@ def main(
 
     config = {
         "era5_lr_dir": era5_lr_dir,
-        "era5_hr_dir": era5_lr_dir,
         "forecast_config": forecast_config,
         "forecast_hours": forecast_hours,
         "dt": forecast_dt,

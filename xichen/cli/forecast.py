@@ -51,7 +51,6 @@ def main(
     """AR rollout against ERA5 truth on the 1.0deg (LR) grid."""
     config = {
         "era5_lr_dir": era5_lr_dir,
-        "era5_hr_dir": era5_lr_dir,  # 1.0° 评估不使用 HR 归一化；仅占位
         "forecast_config": forecast_config,
         "forecast_hours": forecast_hours,
         "start_year": start_year,
