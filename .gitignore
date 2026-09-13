@@ -221,6 +221,7 @@ __marimo__/
 data/
 ckpts/
 outputs/
+assets/
 figures/
 logs/
 *.ckpt
