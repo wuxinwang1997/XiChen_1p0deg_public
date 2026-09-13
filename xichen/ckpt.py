@@ -16,21 +16,31 @@ def _resolve_ckpt_path(ckpt_dir, model_name):
     2. 扁平 .ckpt 文件（DCU 服务器）：``ckpt_dir`` 本身就是一个 ``*.ckpt`` 文件，
        此时忽略 ``model_name`` 直接加载。
 
+    两种布局都搜索不到时抛 FileNotFoundError 并列出候选路径，避免错误深埋在
+    torch ``open()`` 内部（便于定位集群上 ckpt 路径笔误 / 未解包）。
+
     Args:
         ckpt_dir: 目录路径或 ``*.ckpt`` 文件路径。
         model_name: 旧布局中 run 名（如 ``finetune_xichen_state_forecast_ar15_20260616``）。
 
     Returns:
         实际 checkpoint 文件路径。
+
+    Raises:
+        FileNotFoundError: 两种布局均未找到 checkpoint。
     """
     if os.path.isfile(ckpt_dir):
         return ckpt_dir
-    return os.path.join(
-        ckpt_dir,
-        model_name,
-        "runs",
-        "checkpoints",
-        "best.ckpt",
+    run_ckpt = os.path.join(ckpt_dir, model_name, "runs", "checkpoints", "best.ckpt")
+    if os.path.isfile(run_ckpt):
+        return run_ckpt
+    raise FileNotFoundError(
+        f"Checkpoint not found: ckpt_dir={ckpt_dir!r} is neither an existing "
+        f"'*.ckpt' file nor a run directory holding\n  {run_ckpt}\n"
+        "Expect one of:\n"
+        f"  flat file    : ckpt_dir points directly at a '*.ckpt' file\n"
+        "  run directory: <ckpt_dir>/<model_name>/runs/checkpoints/best.ckpt\n"
+        "Resolve the path (or unpack/rename the archive) so one of the two exists."
     )
 
 
